@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load your final fused feature dataset
-df = pd.read_csv('C:/Users/s233183/Special-Course-Parkinson-Machine-Learning/GaitProject_NRT/results/fused_features.csv')
+df = pd.read_csv('C:/Users/s233183/OneDrive - Danmarks Tekniske Universitet/Desktop/Special-Course-Parkinson-Machine-Learning/GaitProject_NRT/results/fused_features.csv')
 
 # Select features and target
 feature_cols = [col for col in df.columns if col not in ['Start', 'End', 'Subject', 'Muscle', 'Group']]

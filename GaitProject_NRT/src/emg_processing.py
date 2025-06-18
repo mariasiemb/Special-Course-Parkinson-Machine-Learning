@@ -7,7 +7,7 @@ def preprocess_emg(emg_df, fs):
     nyquist = fs / 2
 
     if fs < 250:
-        print(f"⚠️ EMG signal sampling rate ({fs} Hz) too low for standard 20–450 Hz band. Adjusting to 1–20 Hz.")
+        print(f" EMG signal sampling rate ({fs} Hz) too low for standard 20–450 Hz band. Adjusting to 1–20 Hz.")
         low, high = 1 / nyquist, min(20 / nyquist, 0.99)
     else:
         low, high = 20 / nyquist, 450 / nyquist
