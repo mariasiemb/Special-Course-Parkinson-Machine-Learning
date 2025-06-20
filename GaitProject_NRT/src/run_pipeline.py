@@ -18,7 +18,7 @@ for group, subject in patients:
         imu_folder + f"{subject}-T_6.ankle.vel(200-1000).csv"
     )
 
-    emg_fs = 1000  # ✅ fixed: EMG sampling rate always 1000 Hz
+    emg_fs = 1000  
 
     emg_df = process_emg(
         emg_folder + "Tibialis_Anterior.txt",
