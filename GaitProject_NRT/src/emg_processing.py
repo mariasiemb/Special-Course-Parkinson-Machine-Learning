@@ -13,8 +13,8 @@ def preprocess_emg(emg_df, fs):
         low, high = 20 / nyquist, 450 / nyquist
 
     b_band, a_band = signal.butter(4, [low, high], btype='bandpass')
-    b_notch, a_notch = signal.iirnotch(50.0, 30.0, fs)  # 50Hz notch
-    b_low, a_low = signal.butter(4, 4 / nyquist, btype='lowpass')  # envelope smoothing
+    b_notch, a_notch = signal.iirnotch(50.0, 30.0, fs) 
+    b_low, a_low = signal.butter(4, 4 / nyquist, btype='lowpass')  
 
     for col in ['EMG_TA', 'EMG_GA']:
         emg_df[f'{col}_zeromean'] = emg_df[col] - np.mean(emg_df[col])
