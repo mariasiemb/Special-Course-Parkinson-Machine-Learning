@@ -17,17 +17,13 @@ def process_imu(acc_path, pos_path, vel_path):
     fs = 1 / np.mean(dt)
     print(f"Estimated sampling rate: {fs:.2f} Hz")
 
-    # --- Estimate step length (in samples) ---
     step_samples = int(0.55 * fs)
     print(f"Estimated samples per step: {step_samples}")
 
-    # Position zero-crossings
     zero_crossings = np.where(np.diff(np.sign(pos['Ankle_pos'])))[0]
 
-    # Acceleration peaks (heel strikes / push-off impacts)
     peaks, _ = find_peaks(acc['Ankle_acc'], distance=step_samples)
 
-    # Optional: if you care about minima (e.g. push-off)
     min_peaks, _ = find_peaks(-acc['Ankle_acc'], distance=step_samples)
 
     segments = []
