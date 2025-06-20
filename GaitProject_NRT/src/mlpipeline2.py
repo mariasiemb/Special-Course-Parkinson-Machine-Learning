@@ -13,16 +13,13 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the fused dataset
 df = pd.read_csv('C:/Users/s233183/OneDrive - Danmarks Tekniske Universitet/Desktop/Special-Course-Parkinson-Machine-Learning/GaitProject_NRT/results/fused_features.csv')
 feature_cols = [c for c in df.columns if c not in ['Start', 'End', 'Subject', 'Muscle', 'Group']]
 X = df[feature_cols]
 y = df['Group'].map({'HC': 0, 'PD': 1})
 
-# Stratified CV setup
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-# Define pipelines
 pipelines = {
     'Logistic Regression': Pipeline([
         ('scaler', StandardScaler()),
@@ -38,10 +35,8 @@ pipelines = {
     ]),
 }
 
-# Scoring metrics
 scoring = ['accuracy', 'f1', 'roc_auc']
 
-# Cross-validate
 cv_results = {}
 for name, pipe in pipelines.items():
     results = cross_validate(pipe, X, y, cv=cv, scoring=scoring, return_train_score=False)
@@ -55,7 +50,7 @@ for name, pipe in pipelines.items():
 results_df = pd.DataFrame(cv_results).T
 print(results_df)
 
-# Plot ROC curve (mean across folds) for the best model (Random Forest)
+# Plot ROC curve 
 best_pipe = pipelines['Random Forest']
 mean_fpr = np.linspace(0, 1, 100)
 tprs = []
@@ -79,7 +74,7 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-# Confusion matrix via cross_val_predict
+# Confusion matrix 
 y_pred = cross_val_predict(best_pipe, X, y, cv=cv)
 cm = confusion_matrix(y, y_pred)
 plt.figure(figsize=(5, 4))
@@ -102,7 +97,6 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.show()
 
-# Optional: Hyperparameter tuning (example for RF)
 param_grid = {
     'clf__n_estimators': [100, 200],
     'clf__max_depth': [None, 5, 10]
